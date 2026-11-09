@@ -34,12 +34,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         private Dictionary<int, Dictionary<double, (double bid, double ask, double vol)>> barBins;
 		
 		private Dictionary<int, Dictionary<double, (double bid, double ask, double vol)>> finalizedBins;
-		//private Dictionary<int, Dictionary<double, (int bid, int ask)>> finalizedBins = new Dictionary<int, Dictionary<double, (int bid, int ask)>>();
-		//private Dictionary<int, Dictionary<double, ValueTuple<double,double>>> barBins;
-		//private Dictionary<int, Dictionary<double, ValueTuple<double,double>>> finalizedBins;
-
-        //private Brush upBrushDX;
-        //private Brush downBrushDX;
+		
 		private SharpDX.Direct2D1.Brush upBrushDX;
         private SharpDX.Direct2D1.Brush downBrushDX;
 		private SharpDX.Direct2D1.Brush upBrushDX1;
@@ -135,21 +130,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 
 		protected override void OnBarUpdate()
 		{
-//			int primaryBar=0; // anchor to primary bar index
-			
-//			// Tick series accumulation
-//            if (BarsInProgress == 0)
-//            {
-//				// Only mark bars when they close
-//			    if (IsFirstTickOfBar)
-//					primaryBar = CurrentBars[0]; // anchor to primary bar index
-//				else
-//					return;
-//			        //return;
-			
-////			    closedBars.Add(CurrentBar+1);
-//			}
-			//if (IsFirstTickOfBar) return;
+
 			
 			if ((BarsInProgress == 0))
 		    {
@@ -289,13 +270,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 			                entry.bid += vol/10;
 			      
 			        }
-	//			    else
-	//			    {
-	//			        // Price stayed the same (Trade inside spread or same level): 
-	//			        // Assign to the side that matches the last trade direction to maintain continuity
-	//			        if (entry.ask >= entry.bid) entry.ask += vol;
-	//			        else entry.bid += vol;
-	//			    }
+	
 				
 				    // Always increment the total volume container cleanly
 				    entry.vol += vol/10;
@@ -310,34 +285,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				}
             }
 			
-//			if (BarsInProgress==0)
-//            {
-//                finalizedBins[CurrentBar] = new Dictionary<double, (double bid, double ask)>(barBins[CurrentBar]);
-//            }
-			
-			
-			
-//			if (BarsInProgress == 0)
-//		    {
-//		        int barIndex = CurrentBar;
-//		        if (barBins.ContainsKey(barIndex))
-//		        {
-//		            // Deep copy current bins into finalizedBins
-//		            //finalizedBins[barIndex] = new Dictionary<double, (double bid, double ask)>(barBins[barIndex]);
-//					finalizedBins[CurrentBar] = new Dictionary<double, ValueTuple<double,double>>(barBins[CurrentBar]);
-//		        }
-//		    }
-			
-			// Tick series accumulation
-//            if (BarsInProgress == 0)
-//            {
-//				// Only mark bars when they close
-////			    if (IsFirstTickOfBar)
-////			        return;
-			
-////			    closedBars.Add(CurrentBar+1);
-//			}
-			
+
 			
 			
 		}
@@ -401,180 +349,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
 		
 		
-//		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
-//        {
-			
-//			if (upBrushDX == null)
-//			    upBrushDX = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(50, 205, 50, 186)); // green
-			
-//			if (downBrushDX == null)
-//			    downBrushDX = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(138, 43, 226, 186)); // red
-			
-//			if (neutralBrushDX == null)
-//    			neutralBrushDX = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(128, 255, 255, 255));
-			
-//			if (neutralBrushDX1 == null)
-//    			neutralBrushDX1 = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(64,64,64,255));
-			
-//            foreach (var kvp in barBins)
-//            {
-//                int barIndex = kvp.Key;
-//                var bins = kvp.Value;
 
-//                if (bins.Count == 0) continue;
-
-//                var keys = bins.Keys.ToList();
-//                keys.Sort();
-
-//                double minMid = keys.First();
-//                double maxMid = keys.Last();
-//                double minPrice = minMid - BinSize / 2.0;
-//                double maxPrice = maxMid + BinSize / 2.0;
-
-//                float yMin = chartScale.GetYByValue(minPrice);
-//                float yMax = chartScale.GetYByValue(maxPrice);
-//                float span = yMin - yMax;
-//                float rectHeight = span / keys.Count;
-
-//                float candleX = chartControl.GetXByBarIndex(ChartBars, barIndex);
-//                float xBase = candleX + (float)chartControl.BarWidth + CandleSpacing;
-
-//                int i = 0;
-//                foreach (var midPrice in keys)
-//                {
-//                    double delta = bins[midPrice].Item1 - bins[midPrice].Item2;
-//                    float y = yMax + i * rectHeight;
-					
-	
-//					 //        Fixed rectangle
-//			        var rect = new SharpDX.RectangleF(xBase, y, RectWidth, rectHeight);
-			
-//			        // Fill color by delta
-//			        var brush = delta > 0 ? upBrushDX : (delta < 0 ? downBrushDX : neutralBrushDX);
-					
-//					var brushTxt = delta > 0 ? neutralBrushDX1 : neutralBrushDX;
-//			        RenderTarget.FillRectangle(rect, brush);
-			
-//			        // Draw text (delta value)
-//			        var layout = new SharpDX.DirectWrite.TextLayout(
-//			            factoryDW,
-//			            delta.ToString(),
-//			            textFormat,
-//			            RectWidth,
-//			            rectHeight);
-			
-//			        RenderTarget.DrawTextLayout(
-//			            new SharpDX.Vector2(xBase, y),
-//			            layout,
-//			            brushTxt);
-					
-					
-/////
-////                    var rect = new SharpDX.RectangleF(xBase, y, RectWidth, rectHeight);
-////                    var brush = delta > 0 ? upBrushDX : (delta < 0 ? downBrushDX : neutralBrushDX);
-
-////                    RenderTarget.FillRectangle(rect, brush);
-
-////                    var layout = new SharpDX.DirectWrite.TextLayout(factoryDW, delta.ToString(), textFormat, RectWidth, rectHeight);
-////                    RenderTarget.DrawTextLayout(new Vector2(xBase, y), layout, neutralBrushDX1);
-//                    //layout.Dispose();
-
-//                    i++;
-//                }
-//            }
-//        }
-		
-//		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
-//        {
-			
-//			if (barBins == null || barBins.Count == 0) return;
-			
-			
-
-//			if (upBrushDX == null)
-//			    upBrushDX = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(50, 205, 50, 186)); // green
-			
-//			if (downBrushDX == null)
-//			    downBrushDX = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(138, 43, 226, 186)); // red
-			
-//			if (neutralBrushDX == null)
-//    			neutralBrushDX = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(128, 255, 255, 255));
-			
-//			if (neutralBrushDX1 == null)
-//    			neutralBrushDX1 = new SharpDX.Direct2D1.SolidColorBrush(RenderTarget, new SharpDX.Color(64,64,64,255));
-			
-////			var textFormat = new SharpDX.DirectWrite.TextFormat(
-////			    new SharpDX.DirectWrite.Factory(),
-////			    "Arial", 
-////				SharpDX.DirectWrite.FontWeight.Bold,   // <--- bold
-////    			SharpDX.DirectWrite.FontStyle.Normal,  // italic if you want
-////    			SharpDX.DirectWrite.FontStretch.Normal,
-////				14f);
-			
-//			foreach (var kvp in barBins)
-//			{
-//			    int barIndex = kvp.Key;
-				
-//				// Only render if this bar has closed
-//		        //if (!closedBars.Contains(barIndex))
-//		        //    continue;
-//			    //float xBase = chartControl.GetXByBarIndex(ChartBars, barIndex) + CandleSpacing;
-//				//float xBase = chartControl.GetXByBarIndex(ChartBars, barIndex) + (float)chartControl.BarWidth+ CandleSpacing;
-//				float xBase = chartControl.GetXByBarIndex(ChartBars, barIndex)+ (float)chartControl.BarWidth+ CandleSpacing;
-				
-//				var keys = kvp.Value.Keys.ToList();
-//				keys.Sort();
-//				double minPrice = keys.First() - BinSize / 2.0;
-//				double maxPrice = keys.Last() + BinSize / 2.0;
-			
-//			    int i = 0;
-//			    foreach (var bin in kvp.)
-//			    {
-//			        double price = bin.Key;
-//			        double bidVol = bin.Value.Item2;
-//			        double askVol = bin.Value.Item1;
-//			        double delta = askVol - bidVol;
-					
-//					float yMin = chartScale.GetYByValue(minPrice);
-//					float yMax = chartScale.GetYByValue(maxPrice);
-//					float span = yMin - yMax; // vertical pixel span
-					
-//					int binCount = keys.Count;
-//					int rectHeight = (int) span / binCount;
-					
-					
-					
-					
-			
-//			        float yCenter = chartScale.GetYByValue(price);
-//					float yTop    = yCenter - RectHeight / 2f;
-			
-//			        // Fixed rectangle
-//			        var rect = new SharpDX.RectangleF(xBase, yTop, RectWidth, rectHeight);
-			
-//			        // Fill color by delta
-//			        var brush = delta > 0 ? upBrushDX : (delta < 0 ? downBrushDX : neutralBrushDX);
-					
-//					var brushTxt = delta > 0 ? neutralBrushDX1 : neutralBrushDX;
-//			        RenderTarget.FillRectangle(rect, brush);
-			
-//			        // Draw text (delta value)
-//			        var layout = new SharpDX.DirectWrite.TextLayout(
-//			            factoryDW,
-//			            delta.ToString(),
-//			            textFormat,
-//			            RectWidth,
-//			            rectHeight);
-			
-//			        RenderTarget.DrawTextLayout(
-//			            new SharpDX.Vector2(xBase, yTop),
-//			            layout,
-//			            brushTxt);
-			        
-//			        i++;
-//			    }
-//			}
-//		}
 		
 		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
         {
@@ -735,19 +510,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            layout5,
 		            valBrushDX);
 				
-//				float yPrice2 = chartScale.GetYByValue(minPrice- 4*(BinSize / 2.0));
-//				// Draw text (delta value)
-//		        var layout6 = new SharpDX.DirectWrite.TextLayout(
-//		            factoryDW,
-//		            stdDev.ToString("F1"),
-//		            textFormat,
-//		            RectWidth,
-//		            RectHeight);
-		
-//		        RenderTarget.DrawTextLayout(
-//		            new SharpDX.Vector2(xDelta, yPrice2),
-//		            layout6,
-//		            valBrushDX);
+
 				
 				
 				
